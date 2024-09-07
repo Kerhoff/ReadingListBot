@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "readinglistbot"
+version = "0.1.0"
+description = "Telegram Bot for Reading List managing"
+authors = ["Aleksandr Lukashkin <kerhoffsky@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+python-telegram-bot = "^21.5"
+python-dotenv = "^1.0.1"
+sqlalchemy = "^2.0.34"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
