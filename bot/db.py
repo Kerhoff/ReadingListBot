@@ -45,19 +45,19 @@ def get_items(user_id, session=None):
     return items
 
 # Function to mark an item as completed
-def mark_item_completed(user_id, title, session=None):
+def mark_item_completed(user_id, item_id, session=None):
     if session is None:
         session = create_session(get_engine())
-    item = session.query(ReadingItem).filter_by(user_id=user_id, title=title).first()
+    item = session.query(ReadingItem).filter_by(user_id=user_id, id=item_id)
     if item:
         item.completed = True
         session.commit()
 
 # Function to remove an item from the reading list
-def delete_item(user_id, title, session=None):
+def delete_item(user_id, item_id, session=None):
     if session is None:
         session = create_session(get_engine())
-    item = session.query(ReadingItem).filter_by(user_id=user_id, title=title).first()
+    item = session.query(ReadingItem).filter_by(user_id=user_id, id=item_id).first()
     if item:
         session.delete(item)
         session.commit()
@@ -70,3 +70,10 @@ def clear_list(user_id, session=None):
     for item in items:
         session.delete(item)
     session.commit()
+
+# Function to filter items by title
+def filter_by_title(user_id, title, session=None):
+    if session is None:
+        session = create_session(get_engine())
+    item = session.query(ReadingItem).filter_by(user_id=user.id, title=title).first()
+    return item
