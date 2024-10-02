@@ -9,27 +9,30 @@ from telegram.ext import (
 from bot import config, handlers
 
 COMMAND_HANDLERS = {
-    'add': handlers.add,
-    'clear': handlers.clear_list,
-    'complete': handlers.complete,
-    'delete': handlers.delete,
-    'filter': handlers.filter_items,
-    'help': handlers.help,
-    'list': handlers.list_items,
-    'start': handlers.start,
-    'summary': handlers.summary,
+    "add": handlers.add,
+    "clear": handlers.clear_list,
+    "complete": handlers.complete,
+    "delete": handlers.delete,
+    "filter": handlers.filter_items,
+    "help": handlers.help,
+    "list": handlers.list_items,
+    "start": handlers.start,
+    "summary": handlers.summary,
 }
 
 # Enable logging
 logging.basicConfig(
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    level=logging.DEBUG # change to logging.INFO to reduce verbosity
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.DEBUG,  # change to logging.INFO to reduce verbosity
 )
 logger = logging.getLogger(__name__)
 
 
 if not config.TELEGRAM_BOT_TOKEN:
-    raise ValueError("Please set the TELEGRAM_BOT_TOKEN environment variable in .env file")
+    raise ValueError(
+        "Please set the TELEGRAM_BOT_TOKEN environment variable in .env file"
+    )
+
 
 def main():
     application = ApplicationBuilder().token(config.TELEGRAM_BOT_TOKEN).build()
@@ -45,7 +48,7 @@ def main():
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         main()
     except Exception:

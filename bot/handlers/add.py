@@ -25,7 +25,6 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Use the first words as the link URL
     # And validate the URL
     link = user_input[0]
-    print(link)
     if not re.match(r'^https?://', link):
         await context.bot.send_message(chat_id=update.effective_chat.id,
                                        text=messages.INVALID_URL)
@@ -34,7 +33,6 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Use the middle words as the title
     # Use link as title if title is not provided
     title = ' '.join(user_input[1:-1])
-    print(title)
     if not title:
         title = link
 
