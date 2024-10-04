@@ -1,9 +1,7 @@
 # ReadingListBot
-
 The Telegram Bot to manage your reading list.
 
 # Features
-
 The bot should allow users to:
 	•	Add links to articles, videos, podcasts and messages from telegram channels to their reading list.
 	•	View their reading list.
@@ -19,21 +17,8 @@ Commands:
     •	/list - View reading list
     •	/delete - Delete item from reading list
     •	/complete - Mark item as read
-    •	/filter - Filter reading list by type
+    •	/show - Filter reading list by type
     •	/summary - Get summary of article
-
-Project Structure:
-    •	readinglistbot.py - Main bot script
-    •	readinglist.py - Reading list class
-    •	summary.py - Summary class
-    •	README.md - Project description
-    •	requirements.txt - Project dependencies
-    •	.gitignore - Git ignore file
-    •	.env - Environment variables file
-    •	Procfile - Heroku deployment file
-    •	Makefile - Makefile for running commands
-    •	tests/ - Folder for tests
-    •	venv/ - Virtual environment folderq
 
 ## Installation
 1. Clone this repository.
@@ -45,3 +30,13 @@ Project Structure:
 - `/start` - Start the bot
 - `/add <book title>` - Add a book to your reading list
 - `/list` - View your reading list
+
+    "add": handlers.add,
+    "clear": handlers.clear_list,
+    "complete": handlers.complete,
+    "delete": handlers.delete,
+    "filter": handlers.filter_items,
+    "help": handlers.help,
+    "list": handlers.list_items,
+    "start": handlers.start,
+    "summary": handlers.summary,

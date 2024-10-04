@@ -1,4 +1,4 @@
-GREETINGS="""Welcome to the Reading List Bot!
+GREETINGS = """Welcome to the Reading List Bot!
 
 I can help you keep track of the information you want to read, listen or watch.
 
@@ -11,29 +11,34 @@ I can help you keep track of the information you want to read, listen or watch.
    For example: /delete 'How to Win Friends and Influence People'
 """
 
-HELP="""Bot Commands:
+HELP = """Bot Commands:
  /start - Start the bot
  /help - Get help
  /add - Add item to reading list
- /list - View reading list
- /delete - Delete item from reading list
  /complete - Mark item as read
- /filter - Filter reading list by type
- /summary - Get summary of article
- /clear - Clear reading list"""
+ /list - View reading list
+ /show - Filter reading list by type
+ /delete - Delete item from reading list
+ /clear - Clear reading list
 
-ADD_ITEM_USAGE="""Usage: /add <link> <title> <type>"""
+ Soon: 
+ /summary - Get summary of article"""
 
-ITEM_ADDED="Item '{title}' added to your list."
+ADD_ITEM_USAGE = """Usage: /add <link> <title> <type>"""
 
-INVALID_ITEM_TYPE="Invalid item type. Please choose from 'book', 'article', 'video', or 'podcast'."
+ITEM_ADDED = "Item '{title}' added to your reading list."
 
-CLEAR_LIST_CONFIRMATION="Are you sure you want to clear your list? This action cannot be undone. Type /confirm to proceed."
+INVALID_ITEM_TYPE = (
+    "Invalid item type. Please choose from 'book', 'article', 'video' or 'podcast'."
+)
 
-LIST_EMPTY="Your list is empty."
+CLEAR_LIST_CONFIRMATION = "Are you sure you want to clear your list? This action cannot be undone. Type /confirm to proceed."
 
-INVALID_URL="Invalid URL. Please provide a valid URL."
+LIST_EMPTY = "Your list is empty."
 
-ITEM_NOT_FOUND="Item not found in your list."
+INVALID_URL = "Invalid URL. Please provide a valid URL."
 
-ITEM_DELETED="Item '{}' deleted from your list."
+ITEM_NOT_FOUND = "Item not found in your list."
+
+ITEM_DELETED = "Item '{id}. {titile}' deleted from your list."
+
