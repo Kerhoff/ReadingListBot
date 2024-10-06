@@ -4,7 +4,6 @@ from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
-    InlineQueryHandler,
 )
 from bot import config, handlers
 
