@@ -8,6 +8,9 @@ import bot.messages as messages
 
 # Define the add command handler
 async def add(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    # Print the message to the console
+    print(f"Received command: {update.message.text}")
+
     # Get the user input
     user_input = context.args
     if len(user_input) < 1:

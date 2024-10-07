@@ -94,7 +94,7 @@ def clear_list(user_id, session=None):
 
 # Function to filter items by title
 # TODO: Filter by type
-def filter_by_title(user_id, title, session=None):
+def get_item_by_title(user_id, title, session=None):
     if session is None:
         session = create_session(get_engine())
     item = session.query(ReadingItem).filter_by(user_id=user.id, title=title).first()
