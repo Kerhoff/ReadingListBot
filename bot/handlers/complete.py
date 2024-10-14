@@ -2,7 +2,7 @@ from telegram import Update
 from telegram.ext import ContextTypes
 import logging
 
-from bot.db import get_item_by_title, mark_item_completed, filter_by_title
+from bot.db import get_item_by_title, mark_item_completed 
 import bot.messages as messages
 
 
