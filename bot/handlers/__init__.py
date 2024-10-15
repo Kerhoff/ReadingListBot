@@ -20,4 +20,3 @@ __all__ = [
     "start",
     # "summary",
 ]  # A list of all the handlers that are available in the bot
-

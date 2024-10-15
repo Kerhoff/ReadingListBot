@@ -1,1 +1,13 @@
-#TODO create a command to change the item
+import logging
+
+from typing import List, Optional
+from telegram import Update
+from telegram.ext import ContextTypes
+
+logger = logging.getLogger(__name__)
+
+
+# Define the clear command handler
+async def change(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    pass
+
