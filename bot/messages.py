@@ -1,3 +1,6 @@
+from typing import Literal
+
+
 GREETINGS = """Welcome to the Reading List Bot!
 
 I can help you keep track of the information you want to read, listen or watch.
@@ -41,4 +44,3 @@ INVALID_URL = "Invalid URL. Please provide a valid URL."
 ITEM_NOT_FOUND = "Item not found in your list."
 
 ITEM_DELETED = "Item '{id}. {titile}' deleted from your list."
-

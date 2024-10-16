@@ -1,5 +1,6 @@
 import logging
 
+from typing import Optional
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
@@ -19,7 +20,7 @@ COMMAND_HANDLERS = {
 }
 
 # Enable logging
-LOG_LEVELS = {
+LOG_LEVELS: dict[str, int] = {
     "DEBUG": logging.DEBUG,
     "INFO": logging.INFO,
     "WARNING": logging.WARNING,
@@ -27,21 +28,21 @@ LOG_LEVELS = {
     "CRITICAL": logging.CRITICAL,
 }
 
-log_level = LOG_LEVELS.get(config.LOG_LEVEL.upper(), logging.INFO)
+log_level: int = LOG_LEVELS.get(config.LOG_LEVEL.upper(), logging.INFO)
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=log_level
 )
 logger = logging.getLogger(__name__)
 
-TOKEN = config.TELEGRAM_BOT_TOKEN
+TOKEN: Optional[str] = config.TELEGRAM_BOT_TOKEN
 if not TOKEN:
     raise ValueError(
         "Please set the TELEGRAM_BOT_TOKEN environment variable in .env file"
     )
 
 
-def main():
+def main() -> None:
     application = ApplicationBuilder().token(TOKEN).build()
 
     # Register and add command handlers to the application
