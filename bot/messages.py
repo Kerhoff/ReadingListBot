@@ -1,6 +1,3 @@
-from typing import Literal
-
-
 GREETINGS = """Welcome to the Reading List Bot!
 
 I can help you keep track of the information you want to read, listen or watch.
@@ -35,11 +32,11 @@ INVALID_ITEM_TYPE = (
     "Invalid item type. Please choose from 'book', 'article', 'video' or 'podcast'."
 )
 
+INVALID_URL = "Invalid URL. Please provide a valid URL."
+
 CLEAR_LIST_CONFIRMATION = "Are you sure you want to clear your list? This action cannot be undone. Type /confirm to proceed."
 
 LIST_EMPTY = "Your list is empty."
-
-INVALID_URL = "Invalid URL. Please provide a valid URL."
 
 ITEM_NOT_FOUND = "Item not found in your list."
 

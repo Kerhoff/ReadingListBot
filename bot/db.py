@@ -31,7 +31,7 @@ class ReadingItem(Base):
     )  # Whether the item has been read/watched/listened to
 
     # Relationship between ReadingItem and User
-    users = relationship("User", back_populates="reading_items")
+    user = relationship("User", back_populates="reading_items")
 
 
 class User(Base):
@@ -42,7 +42,7 @@ class User(Base):
     tg_user_id = Column(Integer, unique=True)  # Telegram ID of the user
 
     # Relationship between User and ReadingItem
-    reading_items = relationship("ReadingItem", back_populates="users")
+    reading_items = relationship("ReadingItem", back_populates="user")
 
 
 # Create a new SQLite database
@@ -86,15 +86,14 @@ def add_item(
     link: str,
     item_type: str,
     session=None,
-) -> ReadingItem:
+) -> None:
     if session is None:
         session = create_session(get_engine())
     new_item: ReadingItem = ReadingItem(
-        user=user, title=title, link=link, item_type=item_type
+        user_id=user.id, title=title, link=link, item_type=item_type
     )
     session.add(new_item)
     session.commit()
-    return new_item
 
 
 # Function to get all items in the reading list

@@ -14,18 +14,18 @@ logger = logging.getLogger(__name__)
 
 # Define the add command handler
 async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    if update.effective_chat is not None:
-        chat_id: int = update.effective_chat.id
-    else:
+    if update.effective_chat is None:
         logger.error("Chat ID not found")
         return
 
-    if update.effective_user is not None:
-        tg_user_id: int = update.effective_user.id
-        tg_username: str = update.effective_user.username
-    else:
+    chat_id: int = update.effective_chat.id
+
+    if update.effective_user is None:
         logger.error("User ID not found")
         return
+
+    tg_user_id: int = update.effective_user.id
+    tg_username: str = update.effective_user.username
 
     # Get the user ID
     user: Optional[object] = get_user(tg_user_id=tg_user_id)
