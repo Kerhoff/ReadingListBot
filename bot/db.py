@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from sqlalchemy import (
     create_engine,
     Column,
@@ -39,7 +39,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True)  # Unique identifier for the user
     tg_username = Column(String, unique=True)  # Telegram username of the user
-    tgr_user_id = Column(Integer, unique=True)  # Telegram ID of the user
+    tg_user_id = Column(Integer, unique=True)  # Telegram ID of the user
 
     # Relationship between User and ReadingItem
     reading_items = relationship("ReadingItem", back_populates="users")
@@ -62,29 +62,39 @@ def create_session(engine):
 
 
 # Funcion to add a new item to the reading list
-def add_user(tg_user_id: int, tg_username: str, session=None) -> None:
+def add_user(tg_user_id: int, tg_username: str, session=None) -> User:
     if session is None:
         session = create_session(get_engine())
     new_user: User = User(tg_user_id=tg_user_id, tg_username=tg_username)
     session.add(new_user)
     session.commit()
+    return new_user
+
+
+# Function to get all items in the reading list
+def get_user(tg_user_id: int, session=None) -> User | None:
+    if session is None:
+        session = create_session(get_engine())
+    user: Optional[User] = session.query(User).filter_by(tg_user_id=tg_user_id).first()
+    return user
 
 
 # Funcion to add a new item to the reading list
 def add_item(
-    user_id: int,
+    user: User,
     title: str,
     link: str,
     item_type: str,
     session=None,
-) -> None:
+) -> ReadingItem:
     if session is None:
         session = create_session(get_engine())
     new_item: ReadingItem = ReadingItem(
-        user_id=user_id, title=title, link=link, item_type=item_type
+        user=user, title=title, link=link, item_type=item_type
     )
     session.add(new_item)
     session.commit()
+    return new_item
 
 
 # Function to get all items in the reading list

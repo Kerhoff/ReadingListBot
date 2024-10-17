@@ -1,11 +1,11 @@
 import logging
 import re
 
-from typing import List
+from typing import List, Optional
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from bot.db import add_item
+from bot.db import add_item, get_user, add_user
 import bot.messages as messages
 
 
@@ -21,10 +21,16 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     if update.effective_user is not None:
-        user_id: int = update.effective_user.id
+        tg_user_id: int = update.effective_user.id
+        tg_username: str = update.effective_user.username
     else:
         logger.error("User ID not found")
         return
+
+    # Get the user ID
+    user: Optional[object] = get_user(tg_user_id=tg_user_id)
+    if user is None:
+        user = add_user(tg_user_id=tg_user_id, tg_username=tg_username)
 
     # Get the user input
     user_input: List[str] = context.args or []
@@ -53,7 +59,7 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         title = link
 
     # Add the item to the database
-    add_item(user_id=user_id, link=link, title=title, item_type=item_type)
+    add_item(user=user, link=link, title=title, item_type=item_type)
     await context.bot.send_message(
         chat_id=chat_id, text=messages.ITEM_ADDED.format(title=title)
     )
