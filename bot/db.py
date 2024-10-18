@@ -103,6 +103,7 @@ def get_items(user_id: int, session=None) -> List[ReadingItem]:
     items: List[ReadingItem] = (
         session.query(ReadingItem).filter_by(user_id=user_id).all()
     )
+
     return items
 
 

@@ -36,6 +36,8 @@ INVALID_URL = "Invalid URL. Please provide a valid URL."
 
 CLEAR_LIST_CONFIRMATION = "Are you sure you want to clear your list? This action cannot be undone. Type /confirm to proceed."
 
+LIST_ITEMS = "- <i>Title:</i> <a href='{link}'>{title}</a>\n  <i>Status:</i> <b>{status}</b>\n  <i>Type:</i> #{item_type}\n"
+
 LIST_EMPTY = "Your list is empty."
 
 ITEM_NOT_FOUND = "Item not found in your list."

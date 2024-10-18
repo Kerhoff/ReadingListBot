@@ -12,5 +12,5 @@ logger = logging.getLogger(__name__)
 
 
 # Define the filter command handler
-async def filter_items(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def show(update: Update, context: ContextTypes.DEFAULT_TYPE):
     pass

@@ -1,22 +1,22 @@
 from .add import add
-from .clear_list import clear_list
+from .clear import clear
 from .complete import complete
 from .delete import delete
-from .filter_items import filter_items
+from .show import show
 from .help import help
-from .list_items import list_items
+from .list import list
 from .start import start
 
 # from .summary import summary
 
 __all__ = [
     "add",
-    "clear_list",
+    "clear",
     "complete",
     "delete",
-    "filter_items",
+    "show",
     "help",
-    "list_items",
+    "list",
     "start",
     # "summary",
 ]  # A list of all the handlers that are available in the bot

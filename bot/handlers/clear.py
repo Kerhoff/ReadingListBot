@@ -8,6 +8,5 @@ logger = logging.getLogger(__name__)
 
 
 # Define the clear command handler
-async def clear_list(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def clear(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     pass
-
