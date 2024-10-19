@@ -15,17 +15,17 @@ logger = logging.getLogger(__name__)
 async def complete(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     args: List[str] = context.args or []
 
-    if update.effective_chat is not None:
-        chat_id: int = update.effective_chat.id
-    else:
+    if update.effective_chat is None:
         logger.error("Chat ID not found")
         return
 
-    if update.effective_user is not None:
-        user_id: int = update.effective_user.id
-    else:
+    chat_id: int = update.effective_chat.id
+
+    if update.effective_user is None:
         logger.error("User ID not found")
         return
+
+    user_id: int = update.effective_user.id
 
     if len(args) < 1:
         await context.bot.send_message(chat_id=chat_id, text="Use: /complete <title>")

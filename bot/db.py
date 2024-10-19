@@ -108,11 +108,11 @@ def get_items(user_id: int, session=None) -> List[ReadingItem]:
 
 
 # Function to mark an item as completed
-def mark_item_completed(user_id: int, title: str, session=None) -> None:
+def mark_item_completed(user_id: int, item_id: int, session=None) -> None:
     if session is None:
         session = create_session(get_engine())
     item: ReadingItem = (
-        session.query(ReadingItem).filter_by(user_id=user_id, title=title).first()
+        session.query(ReadingItem).filter_by(user_id=user_id, item_id=item_id).first()
     )
     if item:
         item.completed = True
