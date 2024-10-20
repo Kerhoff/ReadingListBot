@@ -42,4 +42,4 @@ LIST_EMPTY = "Your list is empty."
 
 ITEM_NOT_FOUND = "Item not found in your list."
 
-ITEM_DELETED = "Item '{id}. {titile}' deleted from your list."
+ITEM_DELETED = "Item '{title}' deleted from your list."

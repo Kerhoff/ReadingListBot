@@ -25,7 +25,7 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         return
 
     tg_user_id: int = update.effective_user.id
-    tg_username: str = update.effective_user.username
+    tg_username: str | None = update.effective_user.username
 
     # Get the user ID
     user: Optional[object] = get_user(tg_user_id=tg_user_id)

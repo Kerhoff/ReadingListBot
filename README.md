@@ -3,9 +3,9 @@ The Telegram Bot to manage your reading list.
 
 # Features
 The bot should allow users to:
-	•	Add links to articles, videos, podcasts and messages from telegram channels to their reading list.
+	•	Add links to articles, videos, podcasts to their reading list.
 	•	View their reading list.
-    •	Filter the reading list by type (articles, videos, podcasts, messages or articles).
+    •	Filter the reading list by type (articles, videos, podcasts or articles).
 	•	Mark item as “Read”
 	•	Delete item from the list.
 	•	Optionally, integrate with an external API to summarise articles of find information.
@@ -28,15 +28,5 @@ Commands:
 
 ## Usage
 - `/start` - Start the bot
-- `/add <book title>` - Add a book to your reading list
+- `/add <link> <title> <type>` - Add a book to your reading list
 - `/list` - View your reading list
-
-    "add": handlers.add,
-    "clear": handlers.clear_list,
-    "complete": handlers.complete,
-    "delete": handlers.delete,
-    "filter": handlers.filter_items,
-    "help": handlers.help,
-    "list": handlers.list_items,
-    "start": handlers.start,
-    "summary": handlers.summary,

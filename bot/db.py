@@ -22,7 +22,9 @@ class ReadingItem(Base):
     __tablename__ = "reading_items"
 
     id = Column(Integer, primary_key=True)  # Unique identifier for the item
-    user_id = Column(Integer, ForeignKey("users.id"))  # Unique identifier for the user
+    user_id = Column(
+        Integer, ForeignKey("users.tg_user_id")
+    )  # Unique identifier for the user
     title = Column(String)  # Title of the item
     link = Column(String)  # URL of the item
     item_type = Column(String)  # Type of the item (e.g., book, article, video)
@@ -37,9 +39,8 @@ class ReadingItem(Base):
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(Integer, primary_key=True)  # Unique identifier for the user
+    tg_user_id = Column(Integer, primary_key=True)  # Telegram ID of the user
     tg_username = Column(String, unique=True)  # Telegram username of the user
-    tg_user_id = Column(Integer, unique=True)  # Telegram ID of the user
 
     # Relationship between User and ReadingItem
     reading_items = relationship("ReadingItem", back_populates="user")
@@ -90,7 +91,7 @@ def add_item(
     if session is None:
         session = create_session(get_engine())
     new_item: ReadingItem = ReadingItem(
-        user_id=user.id, title=title, link=link, item_type=item_type
+        user_id=user.tg_user_id, title=title, link=link, item_type=item_type
     )
     session.add(new_item)
     session.commit()
@@ -120,12 +121,10 @@ def mark_item_completed(user_id: int, item_id: int, session=None) -> None:
 
 
 # Function to remove an item from the reading list
-def delete_item(user_id: int, item_id: int, session=None) -> None:
+def delete_item(item_id: int, session=None) -> None:
     if session is None:
         session = create_session(get_engine())
-    item: ReadingItem = session.query(ReadingItem).filter_by(
-        user_id=user_id, id=item_id
-    )
+    item: ReadingItem = session.query(ReadingItem).filter_by(id=item_id)
     if item:
         session.delete(item)
         session.commit()
