@@ -24,12 +24,12 @@ HELP = """Bot Commands:
  Soon: 
  /summary - Get summary of article"""
 
-ADD_ITEM_USAGE = """Usage: /add <link> <title> <type>"""
+ADD_ITEM_USAGE = 'Invalid format. Use: /add "title" link #type'
 
-ITEM_ADDED = "Item '{title}' added to your reading list."
+ITEM_ADDED = "Item added to your reading list."
 
 INVALID_ITEM_TYPE = (
-    "Invalid item type. Please choose from 'book', 'article', 'video' or 'podcast'."
+    "Invalid item type. Please, use one of: #book, #article, #video or #podcast."
 )
 
 INVALID_URL = "Invalid URL. Please provide a valid URL."
@@ -42,4 +42,6 @@ LIST_EMPTY = "Your list is empty."
 
 ITEM_NOT_FOUND = "Item not found in your list."
 
-ITEM_DELETED = "Item '{title}' deleted from your list."
+ITEM_DELETED = "Item '{item_number}. {title}' deleted from your list."
+
+ITEM_DELETE_CONFIRM = "Are you sure you want to delete '{item_number}. {title}'?"

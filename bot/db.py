@@ -12,6 +12,7 @@ from sqlalchemy.orm import (
     sessionmaker,
     relationship,
 )
+from datetime import datetime
 
 # Define the base for declarative class
 Base = declarative_base()
@@ -31,6 +32,9 @@ class ReadingItem(Base):
     completed = Column(
         Boolean, default=False
     )  # Whether the item has been read/watched/listened to
+    created_at = Column(
+        String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    )  # Date and time the item was added
 
     # Relationship between ReadingItem and User
     user = relationship("User", back_populates="reading_items")
@@ -91,7 +95,11 @@ def add_item(
     if session is None:
         session = create_session(get_engine())
     new_item: ReadingItem = ReadingItem(
-        user_id=user.tg_user_id, title=title, link=link, item_type=item_type
+        user_id=user.tg_user_id,
+        title=title,
+        link=link,
+        item_type=item_type,
+        created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
     )
     session.add(new_item)
     session.commit()
@@ -102,9 +110,11 @@ def get_items(user_id: int, session=None) -> List[ReadingItem]:
     if session is None:
         session = create_session(get_engine())
     items: List[ReadingItem] = (
-        session.query(ReadingItem).filter_by(user_id=user_id).all()
+        session.query(ReadingItem)
+        .filter_by(user_id=user_id)
+        .order_by(ReadingItem.created_at.asc())
+        .all()
     )
-
     return items
 
 

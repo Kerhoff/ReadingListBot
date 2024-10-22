@@ -12,5 +12,6 @@ db.sqlite3
 # DB
 *.db
 
-# Test coverage
+# Tests
 .coverage
+.pytest_cache

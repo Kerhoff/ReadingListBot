@@ -4,18 +4,19 @@ from typing import Optional
 from telegram import Update
 from telegram.ext import (
     ApplicationBuilder,
+    CallbackQueryHandler,
     CommandHandler,
 )
 from bot import config, handlers
 
 COMMAND_HANDLERS = {
     "add": handlers.add,
-    "clear": handlers.clear_list,
+    "clear": handlers.clear,
     "complete": handlers.complete,
     "delete": handlers.delete,
-    "show": handlers.filter_items,
+    "show": handlers.show,
     "help": handlers.help,
-    "list": handlers.list_items,
+    "list": handlers.list,
     "start": handlers.start,
 }
 
@@ -49,6 +50,11 @@ def main() -> None:
     for command, handler in COMMAND_HANDLERS.items():
         command_handler = CommandHandler(command, handler)
         application.add_handler(command_handler)
+
+    # Register callback query handlers
+    application.add_handler(
+        CallbackQueryHandler(handlers.delete_callback, pattern="^delete_")
+    )
 
     application.run_polling(allowed_updates=Update.ALL_TYPES)
 

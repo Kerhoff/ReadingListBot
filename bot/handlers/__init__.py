@@ -2,6 +2,7 @@ from .add import add
 from .clear import clear
 from .complete import complete
 from .delete import delete
+from .delete import delete_callback
 from .show import show
 from .help import help
 from .list import list
@@ -14,6 +15,7 @@ __all__ = [
     "clear",
     "complete",
     "delete",
+    "delete_callback",
     "show",
     "help",
     "list",
