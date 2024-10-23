@@ -53,7 +53,7 @@ async def add(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     # Use the middle words as the title
     # Use link as title if title is not provided
-    title: str = " ".join(user_input[0:-2])
+    title: str = " ".join(user_input[0:-2].replace("'", "").replace('"', ""))
     if not title:
         title = "no title"
 

@@ -69,17 +69,17 @@ async def delete(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     )
 
     # Delete the item
-    try:
-        delete_item(item_id=int(item_to_delete.id))
-        await context.bot.send_message(
-            chat_id=chat_id,
-            text=messages.ITEM_DELETED.format(
-                item_number=item_number, title=item_to_delete.title
-            ),
-        )
-    except Exception as e:
-        logger.error(f"Error deleting item: {e}")
-        return
+    # try:
+    #     delete_item(item_id=int(item_to_delete.id))
+    #     await context.bot.send_message(
+    #         chat_id=chat_id,
+    #         text=messages.ITEM_DELETED.format(
+    #             item_number=item_number, title=item_to_delete.title
+    #         ),
+    #     )
+    # except Exception as e:
+    #     logger.error(f"Error deleting item: {e}")
+    #     return
 
 
 # TODO: Refactor delete_callback to use type hints

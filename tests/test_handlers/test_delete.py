@@ -11,12 +11,14 @@ from bot.db import ReadingItem
     "args, expected_message",
     [
         (
-            ["Test Article"],
+            ["1"],
             "Item 'Test Article' deleted from your list.",
         ),
-        ([], "Use: /delete <title>"),
+        ([], "Use: /delete <item number>"),
+        (["100"], "Invalid item number"),
     ],
 )
+#TODO: Add callback tests
 @pytest.mark.asyncio
 async def test_complete_handler(mocker, args, expected_message):
     # Mosck the Update and Context objects

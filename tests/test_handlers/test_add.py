@@ -10,17 +10,17 @@ from bot.handlers import add
     "args, expected_message",
     [
         (
-            ["https://www.example.com", "Test Article", "article"],
-            "Item 'Test Article' added to your reading list.",
+            ['"Test Article"', "https://www.example.com", "#article"],
+            "Item added to your reading list.",
         ),
-        ([], "Usage: /add <link> <title> <type>"),
+        ([], 'Invalid format. Use: /add "title" link #type'),
         (
-            ["invalid-url", "Test URL Validation", "article"],
+            ["Test URL Validation", "invalid-url", "#article"],
             "Invalid URL. Please provide a valid URL.",
         ),
         (
-            ["https://www.example.com", "Test Invalid Item Type", "unknown"],
-            "Invalid item type. Please choose from 'book', 'article', 'video' or 'podcast'.",
+            ["Test Invalid Item Type", "https://www.example.com", "#unknown"],
+            "Invalid item type. Please, use one of: #book, #article, #video or #podcast.",
         ),
     ],
 )
@@ -36,7 +36,7 @@ async def test_add_handler(mocker, args, expected_message):
     mock_context.args = args
 
     # Mock the database calls
-    mocker.patch("bot.db.add_item", return_value=None)
+    mocker.patch("bot.handlers.add.add_item", return_value=None)
 
     # Mock the send_message method with AsyncMock
     mock_context.bot.send_message = AsyncMock()
