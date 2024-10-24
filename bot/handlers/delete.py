@@ -32,24 +32,28 @@ async def delete(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     try:
         item_number: int = int(args[0])
+        print(item_number)
     except ValueError:
         await context.bot.send_message(chat_id=chat_id, text="Invalid item number")
         return
 
     items: List[ReadingItem] = get_items(user_id=user_id)
+    print(items)
     if item_number < 1 or item_number > len(items):
         await context.bot.send_message(chat_id=chat_id, text="Invalid item number")
         return
 
     # Get the item to delete
     item_to_delete: ReadingItem = items[item_number - 1]
+    print(item_to_delete)
+    item_id: int = item_to_delete.id
 
     # Create the confirmation keyboard
     keyboard = [
         [
             InlineKeyboardButton(
                 "Yes",
-                callback_data=f"delete_confirm:{item_to_delete.id}",
+                callback_data=f"delete_confirm:{item_id}",
             ),
             InlineKeyboardButton(
                 "No",
@@ -95,6 +99,6 @@ async def delete_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         item_id = int(data.split(":")[1])
         # Delete the item
         delete_item(item_id=item_id)
-        await context.bot.send_message(chat_id=chat_id, text=messages.ITEM_DELETED)
+        await context.bot.send_message(chat_id=chat_id, text=messages.ITEM_DELETED.format(item_number = item_id))
     elif data == "delete_cancel":
         await context.bot.send_message(chat_id=chat_id, text="Deletion cancelled.")

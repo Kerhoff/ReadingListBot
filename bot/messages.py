@@ -42,6 +42,6 @@ LIST_EMPTY = "Your list is empty."
 
 ITEM_NOT_FOUND = "Item not found in your list."
 
-ITEM_DELETED = "Item '{item_number}. {title}' deleted from your list."
+ITEM_DELETED = "Item '{item_number}' deleted from your list."
 
 ITEM_DELETE_CONFIRM = "Are you sure you want to delete '{item_number}. {title}'?"
