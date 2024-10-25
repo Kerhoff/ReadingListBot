@@ -1,5 +1,6 @@
 from typing import List, Optional
 from sqlalchemy import (
+    DateTime,
     create_engine,
     Column,
     Integer,
@@ -32,9 +33,10 @@ class ReadingItem(Base):
     completed = Column(
         Boolean, default=False
     )  # Whether the item has been read/watched/listened to
-    created_at = Column(
-        String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    )  # Date and time the item was added
+    # created_at = Column(
+    #     String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # )  # Date and time the item was added
+    created_at = Column(DateTime, default=datetime.now())  # Date and time the item was added
 
     # Relationship between ReadingItem and User
     user = relationship("User", back_populates="reading_items")

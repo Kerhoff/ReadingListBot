@@ -34,10 +34,10 @@ async def list(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         )
         return
 
-    item_list = ""
+    item_list_message = ""
     for idx, item in enumerate(items, start=1):
         item_status = "Completed" if item.completed else "New"
-        item_list += (
+        item_list_message += (
             f"{idx}. <i>Title:</i> <a href='{item.link}'>{item.title}</a>\n"
             f"<i>Status:</i> <b>{item_status}</b>\n"
             f"<i>Type:</i> #{item.item_type}\n"
@@ -47,5 +47,5 @@ async def list(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await context.bot.send_message(
         chat_id=chat_id,
         parse_mode="HTML",
-        text=item_list,
+        text=item_list_message,
     )
