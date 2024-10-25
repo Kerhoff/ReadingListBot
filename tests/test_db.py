@@ -1,3 +1,5 @@
+# TODO: Write tests for the bot.db module
+
 # import pytest
 # from bot.db import ReadingItem, get_engine, create_session, add_item, get_items, mark_item_completed, delete_item, clear_list
 #
