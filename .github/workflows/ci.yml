@@ -1,5 +1,5 @@
 # .github/workflows/ci.yml
-name: CI/CD for Telegram Reading List Bot
+name: CI for Telegram Reading List Bot
 
 on:
   push:
@@ -75,26 +75,4 @@ jobs:
           file: dockerfile
           push: true
           tags: ghcr.io/${{ github.repository }}:latest
-
-  deploy: 
-    runs-on: ubuntu-latest
-    needs: docker-build-and-push
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: set up kuvernetes
-        uses: azure/setup-kubectl@v3
-        with:
-          version: latest
-
-      - name: deploy to kubernetes
-        env:
-          DATABASE_URL: ${{ secrets.PROD_DATABASE_URL }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.PROD_TELEGRAM_BOT_TOKEN }}
-        run: |
-          helm upgrade --install kerhoff-reading-list-bot ./deploy/helm/kerhoff-reading-list-bot \
-            --set image.repository=ghcr.io/${{ github.repository }} \
-            --set image.tag=latest \
-            --set env.DATABASE_URL=${{ secrets.PROD_DATABASE_URL }} \
-            --set env.TELEGRAM_BOT_TOKEN=${{ secrets.PROD_TELEGRAM_BOT_TOKEN }}
 

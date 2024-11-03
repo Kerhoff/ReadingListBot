@@ -1,64 +1,37 @@
+import os
+
+from dotenv import load_dotenv
 from typing import List, Optional
 from sqlalchemy import (
-    DateTime,
     create_engine,
-    Column,
-    Integer,
-    String,
-    Boolean,
-    ForeignKey,
 )
 from sqlalchemy.orm import (
     declarative_base,
     sessionmaker,
-    relationship,
 )
 from datetime import datetime
 
-# Define the base for declarative class
+from bot.db.models import ReadingItem, User
+
+load_dotenv()  # load environment variables from .env file
+# DATABASE_URL: str | None = os.getenv("DATABASE_URL")
+DATABASE_URL: str = os.getenv("DATABASE_URL", "")
+DB_USER: str = os.getenv("DB_USER", "")
+DB_PASSWORD: str = os.getenv("DB_PASSWORD", "")
+DB_NAME: str = os.getenv("DB_NAME", "")
+
+TEST_DATABASE_URL: str | None = os.getenv("TEST_DATABASE_URL")
+
 Base = declarative_base()
-
-
-# Define the ReadingItem model
-class ReadingItem(Base):
-    __tablename__ = "reading_items"
-
-    id = Column(Integer, primary_key=True)  # Unique identifier for the item
-    user_id = Column(
-        Integer, ForeignKey("users.tg_user_id")
-    )  # Unique identifier for the user
-    title = Column(String)  # Title of the item
-    link = Column(String)  # URL of the item
-    item_type = Column(String)  # Type of the item (e.g., book, article, video)
-    completed = Column(
-        Boolean, default=False
-    )  # Whether the item has been read/watched/listened to
-    # created_at = Column(
-    #     String, default=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # )  # Date and time the item was added
-    created_at = Column(DateTime, default=datetime.now())  # Date and time the item was added
-
-    # Relationship between ReadingItem and User
-    user = relationship("User", back_populates="reading_items")
-
-
-class User(Base):
-    __tablename__ = "users"
-
-    tg_user_id = Column(Integer, primary_key=True)  # Telegram ID of the user
-    tg_username = Column(String, unique=True)  # Telegram username of the user
-
-    # Relationship between User and ReadingItem
-    reading_items = relationship("ReadingItem", back_populates="user")
 
 
 # Create a new SQLite database
 # Use in memory database for testing
 def get_engine(testing: bool = False):
     if testing:
-        return create_engine("sqlite:///:memory:")  # In-memory SQLite database
+        return create_engine(TEST_DATABASE_URL)  # In-memory SQLite database
     else:
-        return create_engine("sqlite:///reading_list.db")  # Production SQLite database
+        return create_engine(DATABASE_URL)  # Production SQLite database
 
 
 # Session factory
