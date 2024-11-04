@@ -5,17 +5,14 @@ from telegram import Update
 from telegram.ext import ContextTypes
 from datetime import datetime
 
-from bot.db import ReadingItem
+from bot.db.models import ReadingItem
 from bot.handlers import list
 
 
 @pytest.mark.parametrize(
     "is_empty, expected_message",
     [
-        (
-            True, 
-            "Your list is empty."
-        ),
+        (True, "Your list is empty."),
         (
             False,
             """1. <i>Title:</i> <a href='https://www.example1.com'>1 Test Item</a>\n\
@@ -41,14 +38,14 @@ async def test_list_handler(mocker, is_empty, expected_message):
         link="https://www.example1.com",
         item_type="article",
         completed=False,
-        created_at=datetime.strptime('2024-01-01 00:00:00', '%Y-%m-%d %H:%M:%S'),
+        created_at=datetime.strptime("2024-01-01 00:00:00", "%Y-%m-%d %H:%M:%S"),
     )
     reading_item_2: ReadingItem = ReadingItem(
         title="2 Test Item",
         link="https://www.example2.com",
         item_type="video",
         completed=True,
-        created_at=datetime.strptime('2024-01-02 00:00:00', '%Y-%m-%d %H:%M:%S'),
+        created_at=datetime.strptime("2024-01-02 00:00:00", "%Y-%m-%d %H:%M:%S"),
     )
 
     if is_empty:

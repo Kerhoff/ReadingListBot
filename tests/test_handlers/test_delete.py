@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
 from bot.handlers import delete, delete_callback
-from bot.db import ReadingItem
+from bot.db.models import ReadingItem
 
 
 @pytest.mark.parametrize(
@@ -15,7 +15,6 @@ from bot.db import ReadingItem
         (["100"], "Invalid item number"),
     ],
 )
-
 @pytest.mark.asyncio
 async def test_delete_handler(mocker, args, expected_message):
     # Mosck the Update and Context objects
@@ -46,7 +45,7 @@ async def test_delete_handler(mocker, args, expected_message):
         "bot.handlers.delete.get_items",
         return_value=[
             ReadingItem(id=1, title="Test Article"),
-            ],
+        ],
     )
 
     # Mock the send_message method with AsyncMock
@@ -60,19 +59,20 @@ async def test_delete_handler(mocker, args, expected_message):
         mock_context.bot.send_message.assert_called_once_with(
             chat_id=mock_update.effective_chat.id,
             text=expected_message,
-            )
+        )
     else:
         mock_context.bot.send_message.assert_called_once_with(
             chat_id=mock_update.effective_chat.id,
             text=expected_message,
-            reply_markup=expected_reply_markup,)
+            reply_markup=expected_reply_markup,
+        )
 
 
 @pytest.mark.parametrize(
     "callback_data, expected_result_message",
     [
-        ( 'delete_confirm:1', "Item '1' deleted from your list."),
-        ( "delete_cancel", "Deletion cancelled."),
+        ("delete_confirm:1", "Item '1' deleted from your list."),
+        ("delete_cancel", "Deletion cancelled."),
     ],
 )
 @pytest.mark.asyncio

@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock
 from telegram import Update
 from telegram.ext import ContextTypes
 from bot.handlers import complete
-from bot.db import ReadingItem
+from bot.db.models import ReadingItem
 
 
 @pytest.mark.parametrize(

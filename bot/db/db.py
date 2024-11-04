@@ -5,6 +5,8 @@ from typing import List, Optional
 from sqlalchemy import (
     create_engine,
 )
+
+# from sqlalchemy.dialects import postgresql
 from sqlalchemy.orm import (
     declarative_base,
     sessionmaker,
@@ -16,9 +18,9 @@ from bot.db.models import ReadingItem, User
 load_dotenv()  # load environment variables from .env file
 # DATABASE_URL: str | None = os.getenv("DATABASE_URL")
 DATABASE_URL: str = os.getenv("DATABASE_URL", "")
-DB_USER: str = os.getenv("DB_USER", "")
-DB_PASSWORD: str = os.getenv("DB_PASSWORD", "")
-DB_NAME: str = os.getenv("DB_NAME", "")
+DATABASE_USER: str = os.getenv("DATABASE_USER", "")
+DATABASE_PASSWORD: str = os.getenv("DATABASE_PASSWORD", "")
+DATABASE_NAME: str = os.getenv("DATABASE_NAME", "")
 
 TEST_DATABASE_URL: str | None = os.getenv("TEST_DATABASE_URL")
 
@@ -29,9 +31,11 @@ Base = declarative_base()
 # Use in memory database for testing
 def get_engine(testing: bool = False):
     if testing:
-        return create_engine(TEST_DATABASE_URL)  # In-memory SQLite database
+        return create_engine(TEST_DATABASE_URL)
     else:
-        return create_engine(DATABASE_URL)  # Production SQLite database
+        return create_engine(
+            f"postgresql+psycopg2://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_URL}/{DATABASE_NAME}"
+        )
 
 
 # Session factory
