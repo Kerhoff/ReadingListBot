@@ -4,7 +4,7 @@ from typing import List
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
 
-from bot.db import ReadingItem, delete_item, get_items
+from bot.db.db import ReadingItem, delete_item, get_items
 import bot.messages as messages
 
 logger = logging.getLogger(__name__)
@@ -99,6 +99,8 @@ async def delete_callback(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
         item_id = int(data.split(":")[1])
         # Delete the item
         delete_item(item_id=item_id)
-        await context.bot.send_message(chat_id=chat_id, text=messages.ITEM_DELETED.format(item_number = item_id))
+        await context.bot.send_message(
+            chat_id=chat_id, text=messages.ITEM_DELETED.format(item_number=item_id)
+        )
     elif data == "delete_cancel":
         await context.bot.send_message(chat_id=chat_id, text="Deletion cancelled.")

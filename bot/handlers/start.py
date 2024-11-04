@@ -4,7 +4,7 @@ from typing import Optional
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from bot.db import add_user, get_user
+from bot.db.db import add_user, get_user
 import bot.messages as messages
 
 

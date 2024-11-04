@@ -4,7 +4,7 @@ from typing import List
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from bot.db import ReadingItem, get_items
+from bot.db.db import ReadingItem, get_items
 import bot.messages as messages
 
 
