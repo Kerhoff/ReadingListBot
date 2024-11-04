@@ -37,6 +37,7 @@ async def test_add_handler(mocker, args, expected_message):
 
     # Mock the database calls
     mocker.patch("bot.handlers.add.add_item", return_value=None)
+    # TODO: mock the get_user and add_user functions
 
     # Mock the send_message method with AsyncMock
     mock_context.bot.send_message = AsyncMock()

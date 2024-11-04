@@ -40,6 +40,7 @@ async def test_start_handler(mocker, user_id, user_name, expected_message):
     # Mock the database calls
     mocker.patch("bot.db.db.get_user", return_value=None)
     mocker.patch("bot.db.db.add_user", return_value=None)
+    # TODO: mock the get_user and add_user
 
     # Mock the send_message method with AsyncMock
     mock_context.bot.send_message = AsyncMock()
