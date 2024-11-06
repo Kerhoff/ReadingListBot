@@ -2,8 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "kerhoff-reafing-list-bot.fullname" . }}
-  labels:
+  labels: 
     {{- include "kerhoff-reafing-list-bot.labels" . | nindent 4 }}
+envFrom:
+  - configMapRef:
+      name: {{ include "kerhoff-reafing-list-bot.fullname" . }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
@@ -32,6 +35,17 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          env:
+            - name: TELEGRAM_BOT_TOKEN
+              value: {{ .Values.env.TELEGRAM_BOT_TOKEN }}
+            - name: DATABASE_URL
+              value: {{ .Values.env.DATABASE_URL }}
+            - name: DATABASE_USER
+              value: {{ .Values.env.DATABASE_USER }}
+            - name: DATABASE_PASSWORD
+              value: {{ .Values.env.DATABASE_PASSWORD }}
+            - name: DATABASE_NAME
+              value: {{ .Values.env.DATABASE_NAME }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

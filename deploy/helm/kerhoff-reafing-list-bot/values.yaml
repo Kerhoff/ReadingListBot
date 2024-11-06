@@ -5,10 +5,18 @@
 replicaCount: 1
 
 image:
-  repository: ghcr.io/kerhoff/ReadingListBot
+  repository: ghcr.io/Kerhoff/ReadingListBot
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: latest
+
+env:
+  TELEGRAM_BOT_TOKEN: ""
+  DATABASE_URL: ""
+  DATABASE_USER: ""
+  DATABASE_PASSWORD: ""
+  DATABASE_NAME: ""
+  LOG_LEVEL: ""
 
 imagePullSecrets: []
 nameOverride: ""
@@ -100,9 +108,6 @@ volumeMounts: []
 #   mountPath: "/etc/foo"
 #   readOnly: true
 
-env:
-  DATABASE_URL: ""
-  TELEGRAM_BOT_TOKEN: ""
 
 nodeSelector: {}
 
