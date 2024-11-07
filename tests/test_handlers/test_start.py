@@ -4,6 +4,7 @@ from unittest.mock import AsyncMock
 from telegram import Update
 from telegram.ext import ContextTypes
 from bot.handlers import start
+from bot.db.models import User
 
 
 @pytest.mark.parametrize(
@@ -38,9 +39,9 @@ async def test_start_handler(mocker, user_id, user_name, expected_message):
     mock_update.effective_user.username = user_name
 
     # Mock the database calls
-    mocker.patch("bot.db.db.get_user", return_value=None)
+    mocker_user = User(tg_user_id=171717171, tg_username="test_user_name")
+    mocker.patch("bot.db.db.get_user", return_value=mocker_user)
     mocker.patch("bot.db.db.add_user", return_value=None)
-    # TODO: mock the get_user and add_user
 
     # Mock the send_message method with AsyncMock
     mock_context.bot.send_message = AsyncMock()
