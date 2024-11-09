@@ -40,7 +40,6 @@ async def test_add_handler(mocker, args, expected_message):
     mock_user = User(tg_user_id=171717171, tg_username="test_user_name")
     mocker.patch("bot.handlers.add.get_user", return_value=mock_user)
     mocker.patch("bot.handlers.add.add_item", return_value=None)
-    # TODO: mock the get_user and add_user functions
 
     # Mock the send_message method with AsyncMock
     mock_context.bot.send_message = AsyncMock()
