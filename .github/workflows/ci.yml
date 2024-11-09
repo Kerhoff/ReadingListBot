@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: CI/CD for Telegram Reading List Bot
 
 on:
@@ -12,20 +11,6 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    # services:
-    #   postgres:
-    #     image: postgres:13
-    #     env:
-    #       POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-    #       POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-    #       POSTGRES_DB: test_db
-    #     ports:
-    #       - 5432:5432
-    #     options: >-
-    #       --health-cmd pg_isready
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
     env:
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -93,8 +78,7 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
           helm upgrade --install kerhoff-reading-list-bot ./deploy/helm/kerhoff-reading-list-bot \
-            --set image.repository=ghcr.io/${{github.repository_owner}}/${{github.event.repository.name}}:latest
- \
+            --set image.repository=ghcr.io/${{github.repository_owner}}/${{github.event.repository.name}}:latest \
             --set image.tag=latest \
             --set env.DATABASE_URL=${{ secrets.DATABASE_URL }} \
             --set env.TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
