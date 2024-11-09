@@ -74,7 +74,7 @@ jobs:
           context: .
           file: dockerfile
           push: true
-          tags: ghcr.io/${{github.repository}}:latest
+          tags: ghcr.io/${{github.repository_owner}}/${{github.event.repository.name}}:latest
 
   deploy: 
     runs-on: ubuntu-latest
@@ -93,7 +93,8 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         run: |
           helm upgrade --install kerhoff-reading-list-bot ./deploy/helm/kerhoff-reading-list-bot \
-            --set image.repository=ghcr.io/${{github.repository}}:latest \
+            --set image.repository=ghcr.io/${{github.repository_owner}}/${{github.event.repository.name}}:latest
+ \
             --set image.tag=latest \
             --set env.DATABASE_URL=${{ secrets.DATABASE_URL }} \
             --set env.TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
