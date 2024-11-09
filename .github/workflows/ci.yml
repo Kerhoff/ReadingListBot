@@ -74,7 +74,7 @@ jobs:
           context: .
           file: dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/${{ github.repository | lower }}:latest
 
   deploy: 
     runs-on: ubuntu-latest
