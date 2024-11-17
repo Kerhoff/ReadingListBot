@@ -73,13 +73,13 @@ jobs:
           version: latest
 
       - name: deploy to kubernetes
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        run: |
-          helm upgrade --install kerhoff-reading-list-bot ./deploy/helm/kerhoff-reading-list-bot \
-            --set image.repository=ghcr.io/kerhoff/readinglistbot \
-            --set image.tag=latest \
-            --set env.DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            --set env.TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
+        uses: helm/deploy@v1
+        with:
+          chart: ./deploy/helm/kerhoff-reading-list-bot
+          release: kerhoff-reading-list-bot
+          set:
+            image.repository=ghcr.io/kerhoff/readinglistbot
+            image.tag=latest
+            env.DATABASE_URL=${{ secrets.DATABASE_URL }}
+            env.TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
 

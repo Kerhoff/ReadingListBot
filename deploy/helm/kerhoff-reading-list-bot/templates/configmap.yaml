@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ include "kerhoff-reafing-list-bot.fullname" . }}
 data:
-  LOG_LEVEL: DEBUG
+  LOG_LEVEL: INFO
 ---
 
