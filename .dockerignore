@@ -1,2 +1,8 @@
 .env
 *.db
+.git/*
+.github/*
+deploy/*
+migrations/*
+.gitignore
+alembic.ini

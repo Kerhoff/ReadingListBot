@@ -1,4 +1,4 @@
-name: CI/CD for Telegram Reading List Bot
+name: CI for Telegram Reading List Bot
 
 on:
   push:
@@ -11,9 +11,9 @@ on:
 jobs:
   tests:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    # env:
+    #   DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    #   TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     steps:
       - name: checkout code
@@ -60,26 +60,4 @@ jobs:
           file: dockerfile
           push: true
           tags: ghcr.io/kerhoff/readinglistbot:latest
-
-  deploy: 
-    runs-on: ubuntu-latest
-    needs: docker-build-and-push
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: set up kubernetes
-        uses: azure/setup-kubectl@v3
-        with:
-          version: latest
-
-      - name: deploy to kubernetes
-        uses: helm/deploy@v1
-        with:
-          chart: ./deploy/helm/kerhoff-reading-list-bot
-          release: kerhoff-reading-list-bot
-          set:
-            image.repository=ghcr.io/kerhoff/readinglistbot
-            image.tag=latest
-            env.DATABASE_URL=${{ secrets.DATABASE_URL }}
-            env.TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}
 
