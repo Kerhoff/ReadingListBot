@@ -1,8 +1,10 @@
 .env
+.env.example
 *.db
 .git/*
 .github/*
-deploy/*
 migrations/*
+.dockerignore
 .gitignore
+.pre-commit-config.yaml
 alembic.ini
