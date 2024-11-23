@@ -3,12 +3,12 @@ GREETINGS = """Welcome to the Reading List Bot!
 I can help you keep track of the information you want to read, listen or watch.
 
 1. To add a new item to your list, use the `/add` command followed by the title, URL and type.
-   For example: /add 'How to Win Friends and Influence People' https://www.goodreads.com/book/show/4865.How_to_Win_Friends_and_Influence_People
+   For example: ```/add 'How to Win Friends and Influence People' https://www.goodreads.com/book/show/4865.How_to_Win_Friends_and_Influence_People #book```
 
 2. To view your list, use the `/list` command.
 
-3. To remove an item from your list, use the `/delete` command followed by the title.
-   For example: /delete 'How to Win Friends and Influence People'
+3. To remove an item from your list, use the `/delete` command followed by the number of item in list.
+   For example: ```/delete 1```
 """
 
 HELP = """Bot Commands:
